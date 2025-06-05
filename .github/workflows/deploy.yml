@@ -24,7 +24,7 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Show dist folder (debugging step)
+      - name: Debug dist folder
         run: ls -la ./dist
 
       - name: Deploy to GitHub Pages
