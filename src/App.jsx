@@ -8,7 +8,7 @@ function App() {
   const { isModalOpen } = useAppContext();
   return (
     <main>
-      {isModalOpen ? <Modal /> : ""}
+      {isModalOpen && <Modal />}
       <Header />
       <List />
       <Footers />

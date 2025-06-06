@@ -2,17 +2,20 @@ import { useAppContext } from "../context/AppContext";
 import { getMovie } from "../utils/getMovie";
 
 function MovieCard({ movie }) {
-  const { setIsModalOpen, setSelectedMovie } = useAppContext();
+  const { dispatch } = useAppContext();
+
+  const handleClick = async () => {
+    try {
+      const content = await getMovie(movie.imdbID);
+      dispatch({ type: "SET_SELECTED_MOVIE", payload: content });
+      dispatch({ type: "TOGGLE_MODAL", payload: true });
+    } catch (err) {
+      console.error("Failed to fetch movie details:", err);
+    }
+  };
 
   return (
-    <div
-      className="movie-card"
-      onClick={async () => {
-        const content = await getMovie(movie.imdbID);
-        setSelectedMovie(content);
-        setIsModalOpen((curr) => !curr);
-      }}
-    >
+    <div className="movie-card" onClick={handleClick}>
       <img src={movie.Poster} alt={`Poster for ${movie.Title}`} />
       <div className="movie-card-overlay">
         <div className="movie-card-title">{movie.Title}</div>

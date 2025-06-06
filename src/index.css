@@ -1,5 +1,5 @@
 html {
-  font-size: 62.5%; /* 1rem = 10px */
+  font-size: 62.5%;
   box-sizing: border-box;
 }
 
@@ -16,12 +16,10 @@ main {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 }
 header {
   height: 10vh;
   background-color: beige;
-  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +53,7 @@ button {
   align-items: center;
   border-radius: 5rem;
   border: none;
-  transition: transform 0.2s ease;
+  transition: transform 0.1s ease;
   cursor: pointer;
 }
 button:hover {

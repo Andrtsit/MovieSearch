@@ -2,20 +2,19 @@ import { useAppContext } from "../context/AppContext";
 import { FaImdb } from "react-icons/fa";
 
 const Modal = () => {
-  const { isModalOpen, setIsModalOpen, setSelectedMovie, selectedMovie } =
-    useAppContext();
+  const { isModalOpen, selectedMovie, dispatch } = useAppContext();
+
   const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedMovie(null);
+    dispatch({ type: "TOGGLE_MODAL", payload: false });
+    dispatch({ type: "SET_SELECTED_MOVIE", payload: null });
   };
 
   const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
+    if (e.target === e.currentTarget) closeModal();
   };
 
   if (!isModalOpen || !selectedMovie) return null;
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content scroll-smooth-dark">
@@ -23,7 +22,6 @@ const Modal = () => {
           ×
         </button>
         <h1>{selectedMovie.Title}</h1>
-
         <img src={selectedMovie.Poster} alt={selectedMovie.Title} />
         <h1>Director : {selectedMovie.Director}</h1>
         <h2>Genre : {selectedMovie.Genre}</h2>

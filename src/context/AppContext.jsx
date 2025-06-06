@@ -1,29 +1,44 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 const AppContext = createContext();
 
+const initialState = {
+  query: "",
+  data: [],
+  totalResults: null,
+  selectedMovie: null,
+  isModalOpen: false,
+  currPage: 1,
+};
+
+function appReducer(state, action) {
+  switch (action.type) {
+    case "SET_QUERY":
+      return { ...state, query: action.payload };
+    case "SET_DATA":
+      return { ...state, data: action.payload };
+    case "SET_TOTAL_RESULTS":
+      return { ...state, totalResults: action.payload };
+    case "SET_SELECTED_MOVIE":
+      return { ...state, selectedMovie: action.payload };
+    case "TOGGLE_MODAL":
+      return { ...state, isModalOpen: action.payload };
+    default:
+      return state;
+  }
+}
+
 export function AppProvider({ children }) {
-  const [query, setQuery] = useState("");
-  const [data, setData] = useState([]);
-  const [totalResults, setTotalResults] = useState(null);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const numPages = Math.floor(totalResults / 10);
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  const numPages = Math.ceil(state.totalResults / 10 || 0);
 
   return (
     <AppContext.Provider
       value={{
+        ...state,
         numPages,
-        query,
-        setQuery,
-        data,
-        setData,
-        selectedMovie,
-        setSelectedMovie,
-        totalResults,
-        setTotalResults,
-        isModalOpen,
-        setIsModalOpen,
+        dispatch,
       }}
     >
       {children}

@@ -6,6 +6,7 @@ export async function getData(query, page) {
       `https://www.omdbapi.com/?apikey=${KEY}&s=${query}&page=${page}`
     );
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (err) {
     console.error(err);

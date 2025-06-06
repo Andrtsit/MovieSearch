@@ -3,7 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import { getData } from "../utils/getData";
 
 function Header() {
-  const { setData, setTotalResults, setQuery } = useAppContext();
+  const { dispatch } = useAppContext();
   const [inputedValue, setInputedValue] = useState("");
 
   async function handleSubmit(e) {
@@ -13,11 +13,16 @@ function Header() {
       alert("empty input");
       return;
     }
+
     try {
       const newData = await getData(trimmedInputValue, 1);
-      setData(newData.Search);
-      setTotalResults(Number(newData.totalResults));
-      setQuery(trimmedInputValue);
+
+      dispatch({ type: "SET_DATA", payload: newData.Search });
+      dispatch({
+        type: "SET_TOTAL_RESULTS",
+        payload: Number(newData.totalResults),
+      });
+      dispatch({ type: "SET_QUERY", payload: trimmedInputValue });
     } catch (err) {
       console.error("Failed to fetch data:", err);
     }
