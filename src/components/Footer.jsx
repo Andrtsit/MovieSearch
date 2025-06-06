@@ -1,5 +1,5 @@
 import { useAppContext } from "../context/AppContext";
-import { getData } from "../utils/getData";
+import { getMovies } from "../utils/getMovies";
 import Button from "./Button";
 
 function Footer() {
@@ -8,7 +8,7 @@ function Footer() {
 
   async function handlePage(page) {
     try {
-      const newData = await getData(query, page);
+      const newData = await getMovies(query, page);
       dispatch({ type: "SET_DATA", payload: newData.Search });
       dispatch({ type: "SET_CURR_PAGE", payload: page });
     } catch (err) {

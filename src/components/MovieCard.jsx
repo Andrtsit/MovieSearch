@@ -1,12 +1,12 @@
 import { useAppContext } from "../context/AppContext";
-import { getMovie } from "../utils/getMovie";
+import { getMovieDetails } from "../utils/getMovieDetails";
 
 function MovieCard({ movie }) {
   const { dispatch } = useAppContext();
 
   const handleClick = async () => {
     try {
-      const content = await getMovie(movie.imdbID);
+      const content = await getMovieDetails(movie.imdbID);
       dispatch({ type: "SET_SELECTED_MOVIE", payload: content });
       dispatch({ type: "TOGGLE_MODAL", payload: true });
     } catch (err) {

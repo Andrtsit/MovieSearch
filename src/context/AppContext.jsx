@@ -23,6 +23,8 @@ function appReducer(state, action) {
       return { ...state, selectedMovie: action.payload };
     case "TOGGLE_MODAL":
       return { ...state, isModalOpen: action.payload };
+    case "SET_CURR_PAGE":
+      return { ...state, currPage: action.payload };
     default:
       return state;
   }
@@ -31,7 +33,7 @@ function appReducer(state, action) {
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  const numPages = Math.ceil(state.totalResults / 10 || 0);
+  const numPages = Math.ceil(state.totalResults / 10);
 
   return (
     <AppContext.Provider

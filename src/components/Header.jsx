@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import { getData } from "../utils/getData";
+import { getMovies } from "../utils/getMovies";
 
 function Header() {
   const { dispatch } = useAppContext();
@@ -15,7 +15,7 @@ function Header() {
     }
 
     try {
-      const newData = await getData(trimmedInputValue, 1);
+      const newData = await getMovies(trimmedInputValue, 1);
 
       dispatch({ type: "SET_DATA", payload: newData.Search });
       dispatch({
