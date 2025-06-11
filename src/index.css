@@ -16,6 +16,7 @@ main {
   width: 100vw;
   display: grid;
   grid-template-rows: 1fr auto 0.5fr;
+  overflow: hidden;
 }
 header {
   background-color: beige;
@@ -23,6 +24,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
 header input {
   padding: 1rem;
@@ -39,7 +41,8 @@ section {
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 footer {
   padding: 0.5rem;
@@ -135,7 +138,9 @@ button:hover {
   right: 5%;
   font-size: 2.5rem;
 }
-
+.icon {
+  font-size: 5rem;
+}
 .imdb-icon {
   font-size: 2.5rem;
   color: black;

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { getMovies } from "../utils/getMovies";
+import { MdLocalMovies } from "react-icons/md";
+import { getSeries } from "../utils/getSeries";
 
 function Header() {
-  const { dispatch } = useAppContext();
+  const { dispatch, inputType } = useAppContext();
   const [inputedValue, setInputedValue] = useState("");
 
   async function handleSubmit(e) {
@@ -15,7 +17,17 @@ function Header() {
     }
 
     try {
-      const newData = await getMovies(trimmedInputValue, 1);
+      let newData;
+      if (inputType === "movies") {
+        newData = await getMovies(trimmedInputValue, 1);
+      } else {
+        newData = await getSeries(trimmedInputValue, 1);
+      }
+
+      if (!newData || !newData.Search) {
+        alert("No results found.");
+        return;
+      }
 
       dispatch({ type: "SET_DATA", payload: newData.Search });
       dispatch({
@@ -23,6 +35,7 @@ function Header() {
         payload: Number(newData.totalResults),
       });
       dispatch({ type: "SET_QUERY", payload: trimmedInputValue });
+      dispatch({ type: "SET_CURR_PAGE", payload: 1 });
     } catch (err) {
       console.error("Failed to fetch data:", err);
     }
@@ -30,6 +43,8 @@ function Header() {
 
   return (
     <header>
+      <MdLocalMovies className="icon" />
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="searchBar"></label>
         <input
@@ -37,9 +52,23 @@ function Header() {
           onChange={(e) => setInputedValue(e.target.value)}
           type="text"
           id="searchBar"
-          placeholder="Search for a movie.."
+          placeholder={
+            inputType === "movies"
+              ? "Search for a Movie"
+              : "Search for a Tv-Series"
+          }
         />
       </form>
+      <select
+        onChange={(e) =>
+          dispatch({ type: "SET_INPUT_TYPE", payload: e.target.value })
+        }
+        name="input-type"
+        id="input-type"
+      >
+        <option value="movies">Movies</option>
+        <option value="series">Tv-Series</option>
+      </select>
     </header>
   );
 }

@@ -1,36 +1,54 @@
+import { useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
 import { getMovies } from "../utils/getMovies";
+import { getSeries } from "../utils/getSeries";
 import Button from "./Button";
 
 function Footer() {
-  const { currPage, numPages, query, dispatch } = useAppContext();
+  const { currPage, numPages, query, dispatch, inputType } = useAppContext();
   const activeButtonStyle = { color: "aqua" };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currPage]);
 
   async function handlePage(page) {
+    if (page === currPage) return;
     try {
-      const newData = await getMovies(query, page);
+      let newData;
+      if (inputType === "movies") {
+        newData = await getMovies(query, page);
+      } else {
+        newData = await getSeries(query, page);
+      }
+
+      if (!newData || !newData.Search) {
+        alert("No results found.");
+        return;
+      }
+
       dispatch({ type: "SET_DATA", payload: newData.Search });
       dispatch({ type: "SET_CURR_PAGE", payload: page });
     } catch (err) {
       console.error("Failed to fetch data:", err);
+      alert("Something went wrong while changing page.");
     }
   }
 
   function renderPageButtons() {
     let start, end;
 
-    if (numPages <= 10) {
+    if (numPages <= 9) {
       start = 1;
       end = numPages;
-    } else if (currPage <= 6) {
+    } else if (currPage <= 5) {
       start = 1;
-      end = 10;
-    } else if (currPage > numPages - 5) {
+      end = 9;
+    } else if (currPage > numPages - 4) {
       end = numPages;
-      start = numPages - 9;
+      start = numPages - 8;
     } else {
       start = currPage - 4;
-      end = currPage + 5;
+      end = currPage + 4;
     }
 
     const buttons = [];
@@ -51,23 +69,29 @@ function Footer() {
   return (
     <footer>
       {currPage > 1 && (
-        <Button
-          style={{ fontSize: "2rem" }}
-          onClick={() => handlePage(currPage - 1)}
-        >
-          &larr;
-        </Button>
+        <>
+          <Button onClick={() => handlePage(1)}>&laquo;</Button>
+          <Button
+            style={{ fontSize: "2rem" }}
+            onClick={() => handlePage(currPage - 1)}
+          >
+            &larr;
+          </Button>
+        </>
       )}
 
       {renderPageButtons()}
 
       {currPage < numPages && (
-        <Button
-          style={{ fontSize: "2rem" }}
-          onClick={() => handlePage(currPage + 1)}
-        >
-          &rarr;
-        </Button>
+        <>
+          <Button
+            style={{ fontSize: "2rem" }}
+            onClick={() => handlePage(currPage + 1)}
+          >
+            &rarr;
+          </Button>
+          <Button onClick={() => handlePage(numPages)}>&raquo;</Button>
+        </>
       )}
     </footer>
   );

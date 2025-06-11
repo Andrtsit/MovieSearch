@@ -1,13 +1,17 @@
+import toast from "react-hot-toast";
+
 export async function getMovies(query, page) {
   if (!query) return;
   const KEY = "c98ef511";
   try {
     const response = await fetch(
-      `https://www.omdbapi.com/?apikey=${KEY}&s=${query}&page=${page}`
+      `https://www.omdbapi.com/?apikey=${KEY}&s=${query}&page=${page}&type=movie`
     );
     const data = await response.json();
+    if (data.Response === "False") throw new Error(data.Error);
     return data;
   } catch (err) {
-    console.error(err);
+    toast.error(err.message || "Something went wrong");
+    throw err;
   }
 }

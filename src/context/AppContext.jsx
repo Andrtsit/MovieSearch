@@ -9,6 +9,7 @@ const initialState = {
   selectedMovie: null,
   isModalOpen: false,
   currPage: 1,
+  inputType: "movies",
 };
 
 function appReducer(state, action) {
@@ -25,6 +26,8 @@ function appReducer(state, action) {
       return { ...state, isModalOpen: action.payload };
     case "SET_CURR_PAGE":
       return { ...state, currPage: action.payload };
+    case "SET_INPUT_TYPE":
+      return { ...state, inputType: action.payload };
     default:
       return state;
   }
