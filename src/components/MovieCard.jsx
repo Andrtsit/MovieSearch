@@ -16,7 +16,15 @@ function MovieCard({ movie }) {
 
   return (
     <div className="movie-card" onClick={handleClick}>
-      <img src={movie.Poster} alt={`Poster for ${movie.Title}`} />
+      <img  src={movie.Poster === "N/A" ? "/MovieSearch/404.jpg" : movie.Poster} alt={`Poster for ${movie.Title}`}  onError={(e)=>
+        {
+            if (!e.target.dataset.fallback) {
+      e.target.src = "/MovieSearch/404.jpg";
+      e.target.dataset.fallback = "true";
+    }
+        }
+      } />
+      
       <div className="movie-card-overlay">
         <div className="movie-card-title">{movie.Title}</div>
       </div>

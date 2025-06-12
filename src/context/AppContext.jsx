@@ -18,6 +18,14 @@ function appReducer(state, action) {
       return { ...state, query: action.payload };
     case "SET_DATA":
       return { ...state, data: action.payload };
+      case "RESET_DATA":
+  return {
+    ...state,
+    data: [],
+    query: "",
+    totalResults: 0,
+    currPage: 1,
+  };
     case "SET_TOTAL_RESULTS":
       return { ...state, totalResults: action.payload };
     case "SET_SELECTED_MOVIE":
