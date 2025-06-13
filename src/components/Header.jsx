@@ -13,7 +13,7 @@ function Header() {
 
     const timer = setTimeout(async () => {
       if (trimmedInput === "") {
-        dispatch({ type: "RESET_DATA" }); 
+        dispatch({ type: "RESET_DATA" });
         return;
       }
 
@@ -23,8 +23,8 @@ function Header() {
             ? await getMovies(trimmedInput, 1)
             : await getSeries(trimmedInput, 1);
 
-        if (!newData || !newData.Search) {
-          alert("No results found.");
+        if (newData.Response === "False") {
+          dispatch({ type: "RESET_DATA" }); // clear previous results
           return;
         }
 
@@ -37,43 +37,42 @@ function Header() {
         dispatch({ type: "SET_CURR_PAGE", payload: 1 });
       } catch (err) {
         console.error("Failed to fetch data:", err);
+        dispatch({ type: "RESET_DATA" });
       }
     }, 600); // 600ms debounce
 
     return () => clearTimeout(timer);
-  }, [inputedValue, inputType]);
+  }, [inputedValue, inputType, dispatch]);
 
   return (
     <header>
-  
-<div className="search-container">
-
-      <label htmlFor="searchBar"></label>
-      <input
-      className="search-input"
-        value={inputedValue}
-        onChange={(e) => setInputedValue(e.target.value)}
-        type="text"
-        id="searchBar"
-        placeholder={
-          inputType === "movies"
-          ? "Search for Movies"
-          : "Search for TV Series"
-        }
+      <div className="search-container">
+        <input
+          className="search-input"
+          value={inputedValue}
+          onChange={(e) => setInputedValue(e.target.value)}
+          type="text"
+          id="searchBar"
+          placeholder={
+            inputType === "movies"
+              ? "Search for Movies"
+              : "Search for TV Series"
+          }
         />
 
-      <select
-      className="search-select"
-        onChange={(e) =>
-          dispatch({ type: "SET_INPUT_TYPE", payload: e.target.value })
-        }
-        name="input-type"
-        id="input-type"
+        <select
+          value={inputType}
+          className="search-select"
+          onChange={(e) =>
+            dispatch({ type: "SET_INPUT_TYPE", payload: e.target.value })
+          }
+          name="input-type"
+          id="input-type"
         >
-        <option value="movies">MOVIES</option>
-        <option value="series">TV-SERIES</option>
-      </select>
-        </div>
+          <option value="movies">MOVIES</option>
+          <option value="series">TV-SERIES</option>
+        </select>
+      </div>
     </header>
   );
 }

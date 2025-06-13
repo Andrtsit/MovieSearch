@@ -10,19 +10,6 @@ function List() {
       listRef.current.scrollTop = 0;
     }
   }, [currPage]);
-  if (data === undefined)
-    return (
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "4rem",
-        }}
-      >
-        Not Found 😥
-      </section>
-    );
 
   return (
     <section ref={listRef}>

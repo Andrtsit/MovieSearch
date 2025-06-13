@@ -22,23 +22,32 @@ const Modal = () => {
           ×
         </button>
         <h1>{selectedMovie.Title}</h1>
-        <img src={selectedMovie.Poster === "N/A" ? "/MovieSearch/404.jpg" : selectedMovie.Poster} alt={selectedMovie.Title}  onError={(e)=>
-          {
-              {
-            if (!e.target.dataset.fallback) {
-      e.target.src = "/MovieSearch/404.jpg";
-      e.target.dataset.fallback = "true";
-    }
-        }
+        <img
+          src={
+            selectedMovie.Poster === "N/A"
+              ? "/MovieSearch/404.jpg"
+              : selectedMovie.Poster
           }
-        }/>
+          alt={selectedMovie.Title}
+          onError={(e) => {
+            if (!e.target.dataset.fallback) {
+              e.target.src = "/MovieSearch/404.jpg";
+              e.target.dataset.fallback = "true";
+            }
+          }}
+        />
         <h1>Director : {selectedMovie.Director}</h1>
         <h2>Genre : {selectedMovie.Genre}</h2>
         <h2>Duration : {selectedMovie.Runtime}</h2>
         <h2>Released in : {selectedMovie.Released}</h2>
         <h2>Actors : {selectedMovie.Actors}</h2>
         <h2>Plot : {selectedMovie.Plot}</h2>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+          }}
+        >
           <h1>Imdb Rating : {selectedMovie.imdbRating}</h1>
           <a
             href={`https://www.imdb.com/title/${selectedMovie.imdbID}`}
