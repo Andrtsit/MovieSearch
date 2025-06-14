@@ -6,8 +6,11 @@ import Button from "./Button";
 
 function Footer() {
   const { currPage, numPages, query, dispatch, inputType } = useAppContext();
-  const activeButtonStyle = { color: "aqua", backgroundColor: "rgba(78, 205, 196, 0.3)" ,borderColor: "#4ecdc4"
-            };
+  const activeButtonStyle = {
+    color: "aqua",
+    backgroundColor: "rgba(78, 205, 196, 0.3)",
+    borderColor: "#4ecdc4",
+  };
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currPage]);

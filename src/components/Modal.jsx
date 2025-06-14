@@ -23,6 +23,7 @@ const Modal = () => {
         </button>
         <h1>{selectedMovie.Title}</h1>
         <img
+          className="modal-img"
           src={
             selectedMovie.Poster === "N/A"
               ? "/MovieSearch/404.jpg"
