@@ -88,15 +88,15 @@ MovieSearch/
 
 ## 🎯 Usage
 
-1. **Search Movies**: Use the search functionality in the header to find movies by title
-2. **Browse Results**: View movies in a responsive grid layout with poster images
+1. **Search Movies**: Use the search functionality in the header to find movies/TV series by title
+2. **Browse Results**: View results in a responsive grid layout with poster images
 3. **View Details**: Click on any movie card to open a detailed modal with:
    - Movie poster and title
    - Director and genre information
    - Plot summary and additional details
    - Ratings and release information
-4. **Close Modal**: Click the close button or outside the modal to return to results
-5. **Error Handling**: The app gracefully handles missing posters and API errors
+
+
 
 ## 🤝 Contributing
 
