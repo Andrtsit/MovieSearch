@@ -37,7 +37,8 @@ const Modal = () => {
             }
           }}
         />
-        <h1>Director : {selectedMovie.Director}</h1>
+      
+        <h2>Director : {selectedMovie.Director}</h2>
         <h2>Genre : {selectedMovie.Genre}</h2>
         <h2>Duration : {selectedMovie.Runtime}</h2>
         <h2>Released in : {selectedMovie.Released}</h2>
