@@ -112,11 +112,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Contact
+## 📫 Get in Touch
 
-andrtsit@gmail.com
-
-Project Link: [https://github.com/Andrtsit/MovieSearch](https://github.com/Andrtsit/MovieSearch)
+* ✉️  Email: [andrtsit@gmail.com](mailto:andrtsit@gmail.com)
+* 🔗  LinkedIn: [https://www.linkedin.com/in/andreas-tsitroulis-436465221/](https://www.linkedin.com/in/andreas-tsitroulis-436465221/)
 
 ---
 
